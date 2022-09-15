@@ -4,7 +4,7 @@ import './page.scss';
 const CategoriesPage = () => (
   <main className="app-main categories-page">
     <h2>
-      Categories
+      <button type="button">Check status</button>
     </h2>
   </main>
 );
