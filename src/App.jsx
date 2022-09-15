@@ -11,7 +11,7 @@ import CategoriesPage from './pages/Categories';
 
 const links = [
   {
-    path: '/books',
+    path: '/',
     text: 'Books',
     element: (<BooksPage />),
   },

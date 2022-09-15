@@ -10,6 +10,7 @@ const Header = ({ links }) => (
         <div key={`NavLinkTo${link.text}`}>
           <NavLink
             to={link.path}
+            end
             className={`nav-link ${({ isActive }) => (isActive ? 'active' : undefined)}`}
           >
             {link.text}
