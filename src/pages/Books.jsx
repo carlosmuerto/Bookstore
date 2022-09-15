@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import AddBookForm from '../components/Book/AddBookForm';
-import Book from '../components/Book/Book';
+import ListOfBooks from '../components/Book/ListOfBooks';
 import './page.scss';
 
 const BooksPage = () => {
@@ -33,8 +33,6 @@ const BooksPage = () => {
   ]);
   const addBook = (data) => {
     const { title, author, genre } = data;
-    // eslint-disable-next-line no-console
-    console.log(title, author, genre);
 
     setBooks((prevState) => [
       ...prevState,
@@ -54,12 +52,8 @@ const BooksPage = () => {
       <h2>
         Books
       </h2>
-      <div>
-        <AddBookForm addBook={addBook} />
-      </div>
-      <div className="books-lisk">
-        {books.map((book) => (<Book key={`books-lisk-card-${book.id}`} book={book} />))}
-      </div>
+      <ListOfBooks books={books} />
+      <AddBookForm addBook={addBook} />
     </main>
   );
 };

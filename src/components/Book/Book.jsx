@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import './Book.scss';
 
 const Book = ({ book }) => {
   const {
