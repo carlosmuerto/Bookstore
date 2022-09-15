@@ -13,11 +13,11 @@ const Book = ({ book }) => {
     <div className="book-card" id={id}>
       <div className="info">
         <h5 className="genres">
-          {genres.join()}
+          {genres}
         </h5>
         <h4 className="title">{title}</h4>
         <h5 className="authors">
-          {authors.join()}
+          {authors}
         </h5>
       </div>
       <div className="read-status">
@@ -32,8 +32,8 @@ Book.propTypes = {
   book: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    authors: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    genres: PropTypes.string.isRequired,
+    authors: PropTypes.string.isRequired,
     completed: PropTypes.number.isRequired,
     currentChapter: PropTypes.string.isRequired,
   }).isRequired,
