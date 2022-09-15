@@ -1,0 +1,35 @@
+.app-header {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 0 15%;
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-around;
+
+    a {
+      all: unset;
+    }
+
+    .nav-link {
+      display: block;
+      font-size: 1rem;
+      margin: 1rem;
+      cursor: pointer;
+
+      &.nav-link.active {
+        font-weight: bold;
+      }
+    }
+
+    .nav-link.active {
+      font-weight: bold;
+    }
+  }
+}

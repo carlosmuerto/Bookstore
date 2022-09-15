@@ -1,0 +1,15 @@
+.book-card {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+
+  .info {
+    width: 70%;
+  }
+
+  .read-status {
+    min-width: 30%;
+    width: 30%;
+    max-width: 30%;
+  }
+}
