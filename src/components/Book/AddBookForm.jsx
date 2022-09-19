@@ -7,7 +7,7 @@ import * as bookActions from '../../redux/books/books';
 const AddBookForm = () => {
   const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
-  // eslint-disable-next-line no-console
+
   const onSubmit = (data) => { dispatch(bookActions.addBook(data)); };
   return (
     <div className="add-book-form">
@@ -21,25 +21,4 @@ const AddBookForm = () => {
   );
 };
 
-/*
-return (
-    <form onSubmit={handleSubmit((data) => setData(JSON.stringify(data)))}>
-      <Header />
-      <input {...register("firstName")} placeholder="First name" />
-      <select {...register("category")}>
-        <option value="">Select...</option>
-        <option value="A">Option A</option>
-        <option value="B">Option B</option>
-      </select>
-      <textarea {...register("aboutYou")} placeholder="About you" />
-      <p>{data}</p>
-      <input type="submit" />
-    </form>
-  );
-*/
-/*
-AddBookForm.propTypes = {
-  addBook: PropTypes.func.isRequired,
-};
-*/
 export default AddBookForm;

@@ -69,29 +69,3 @@ const removeBook = (id) => ({ type: REMOVE, id });
 
 export default reducer;
 export { addBook, removeBook };
-/*
-export function loadWidgets() {
-  return ;
-}
-
-export function createWidget(widget) {
-  return { type: CREATE, widget };
-}
-
-export function updateWidget(widget) {
-  return { type: UPDATE, widget };
-}
-
-export function removeWidget(widget) {
-  return { type: REMOVE, widget };
-}
-*/
-
-// side effects, only as applicable
-// e.g. thunks, epics, etc
-
-/*
-export function getWidget () {
-  return dispatch => get('/widget').then(widget => dispatch(updateWidget(widget)))
-}
-*/
