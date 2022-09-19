@@ -1,11 +1,14 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* props-no-spreading disabled because is quired for react-hook-form */
-import PropTypes from 'prop-types';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import * as bookActions from '../../redux/books/books';
 
-const AddBookForm = ({ addBook }) => {
+const AddBookForm = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => addBook(data);
+  const dispatch = useDispatch();
+  // eslint-disable-next-line no-console
+  const onSubmit = (data) => { dispatch(bookActions.addBook(data)); };
   return (
     <div className="add-book-form">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -34,9 +37,9 @@ return (
     </form>
   );
 */
-
+/*
 AddBookForm.propTypes = {
   addBook: PropTypes.func.isRequired,
 };
-
+*/
 export default AddBookForm;
