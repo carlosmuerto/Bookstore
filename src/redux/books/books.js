@@ -1,29 +1,38 @@
-import { without } from 'lodash';
-
-const initState = { books: [] };
+import { concat, reject } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
+import deepFreeze from 'deep-freeze';
 
 // Actions
 const ADD = 'bookstore/books/ADD';
 const REMOVE = 'bookstore/books/REMOVE';
 
-const createBook = (data) => {
-  const { title, author, genre } = data;
-  return {
-    id: title, // TODO use UUID later
-    title,
-    genres: genre,
-    authors: author,
-    completed: 0,
-    currentChapter: 'Introduction',
-  };
-};
-
-const addBookAction = (prevState, data) => ({
-  books: [...prevState.books, createBook(data)],
+const createBook = (data, completed = 0, currentChapter = 'Chaper 01') => ({
+  id: uuidv4(),
+  ...data,
+  completed,
+  currentChapter,
 });
 
-const removeBookAction = (prevState, id) => ({
-  books: without(prevState.books, [id]),
+const initState = deepFreeze({
+  books: [
+    createBook({
+      title: 'init fist book',
+      author: 'Author 1',
+      genre: 'init genre',
+    }),
+    createBook({
+      title: 'init second book',
+      author: 'Author 2',
+      genre: 'init genre',
+    }),
+  ],
+});
+const addBookAction = (prevState, data) => deepFreeze({
+  books: concat(prevState.books, createBook(data)),
+});
+
+const removeBookAction = (prevState, id) => deepFreeze({
+  books: reject(prevState.books, { id }),
 });
 
 // Reducer

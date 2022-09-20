@@ -1,9 +1,9 @@
-const initState = { categories: [] };
+const initState = { status: 'please Check' };
 
 // Actions
 const CHECKSTATUS = 'bookstore/categories/CHECKSTATUS';
 
-const checkStatusAction = () => 'Under construction';
+const checkStatusAction = () => ({ status: 'Under construction' });
 
 // Reducer
 const reducer = (prevState = initState, action = {}) => {
