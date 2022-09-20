@@ -8,8 +8,8 @@ const BooksPage = () => (
     <h2>
       Books
     </h2>
-    <ListOfBooks />
     <AddBookForm />
+    <ListOfBooks />
   </main>
 );
 
