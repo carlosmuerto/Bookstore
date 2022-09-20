@@ -1,12 +1,21 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import * as categoriesActions from '../redux/categories/categories';
 import './page.scss';
 
-const CategoriesPage = () => (
-  <main className="app-main categories-page">
-    <h2>
-      <button type="button">Check status</button>
-    </h2>
-  </main>
-);
+const CategoriesPage = () => {
+  const status = useSelector((store) => store.categories.status);
+  const dispatch = useDispatch();
+  const onClick = () => { dispatch(categoriesActions.checkStatus()); };
+  return (
+    <main className="app-main categories-page">
+      <h2>
+        status:
+        {` ${status}`}
+      </h2>
+      <button type="button" onClick={onClick}>Check status</button>
+    </main>
+  );
+};
 
 export default CategoriesPage;
