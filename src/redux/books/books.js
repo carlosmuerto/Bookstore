@@ -1,33 +1,6 @@
 import { without } from 'lodash';
 
-const initBooks = [
-  {
-    id: 'The Hunger Games',
-    title: 'The Hunger Games',
-    genres: 'Action',
-    authors: 'Suzanne Collins',
-    completed: 64,
-    currentChapter: 'Chapter 17',
-  },
-  {
-    id: 'Dune',
-    title: 'Dune',
-    genres: 'Science Fiction',
-    authors: 'Frank Herbert',
-    completed: 8,
-    currentChapter: 'Chapter 3: "A Lesson Learned"',
-  },
-  {
-    id: 'Capital in the Twenty-First Century',
-    title: 'Capital in the Twenty-First Century',
-    genres: 'Economy',
-    authors: 'Suzanne Collins',
-    completed: 0,
-    currentChapter: 'Introduction',
-  },
-
-];
-const initState = { books: initBooks };
+const initState = { books: [] };
 
 // Actions
 const ADD = 'bookstore/books/ADD';
@@ -36,7 +9,7 @@ const REMOVE = 'bookstore/books/REMOVE';
 const createBook = (data) => {
   const { title, author, genre } = data;
   return {
-    id: title,
+    id: title, // TODO use UUID later
     title,
     genres: genre,
     authors: author,
