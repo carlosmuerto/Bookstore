@@ -10,7 +10,7 @@ const Book = ({ book }) => {
     // eslint-disable-next-line camelcase
     item_id,
     title,
-    genre,
+    category,
     author,
   } = book;
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const Book = ({ book }) => {
   return (
     <div className="book-card" id={item_id}>
       <div className="info">
-        <h5 className="genres">
-          {genre}
+        <h5 className="categories">
+          {category}
         </h5>
         <h4 className="title">{title}</h4>
         <h5 className="authors">
@@ -37,7 +37,7 @@ Book.propTypes = {
   book: PropTypes.shape({
     item_id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     //    completed: PropTypes.number.isRequired,
     //    currentChapter: PropTypes.string.isRequired,
