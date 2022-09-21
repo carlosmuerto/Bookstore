@@ -2,14 +2,14 @@
 /* props-no-spreading disabled because is quired for react-hook-form */
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import * as bookActions from '../../redux/books/books';
+import { actions as bookActions } from '../../redux/books/books';
 
 const AddBookForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    dispatch(bookActions.addBook(data));
+    dispatch(bookActions.ADD(data));
     reset();
   };
   return (

@@ -1,19 +1,20 @@
 /* eslint-disable camelcase */
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import * as bookActions from '../../redux/books/books';
+import { actions as bookActions } from '../../redux/books/books';
 
 import './Book.scss';
 
 const Book = ({ book }) => {
   const {
+    // eslint-disable-next-line camelcase
     item_id,
     title,
     genre,
     author,
   } = book;
   const dispatch = useDispatch();
-  const onClick = () => { dispatch(bookActions.removeBook(item_id)); };
+  const onClick = () => { dispatch(bookActions.REMOVE(item_id)); };
   return (
     <div className="book-card" id={item_id}>
       <div className="info">
