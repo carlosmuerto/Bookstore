@@ -5,7 +5,7 @@ import loadingStatus from '../reduxConst';
 // actions CONSTANTS
 const ACTION_PREPEND = 'bookstore/categories';
 
-const CheckStatus = createAsyncThunk(
+const checkStatus = createAsyncThunk(
   `${ACTION_PREPEND}/CHECKSTATUS`,
   async () => {
     // WAIT -------------------------------------\/ millisecunds
@@ -23,13 +23,13 @@ const categoriesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(CheckStatus.pending, (state) => {
+      .addCase(checkStatus.pending, (state) => {
         if (state.loadingStatus === loadingStatus.idle) {
           state.status = 'REQUESTING';
         }
         state.loadingStatus = loadingStatus.pending;
       })
-      .addCase(CheckStatus.fulfilled, (state, action) => {
+      .addCase(checkStatus.fulfilled, (state, action) => {
         state.loadingStatus = loadingStatus.succeeded;
         state.status = action.payload;
       });
@@ -37,5 +37,5 @@ const categoriesSlice = createSlice({
 });
 
 const { actions, reducer } = categoriesSlice;
-export { actions, CheckStatus as fetchCategoriesStatus };
+export { actions, checkStatus };
 export default reducer;

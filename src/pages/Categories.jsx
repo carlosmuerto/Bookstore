@@ -6,7 +6,7 @@ import './page.scss';
 const CategoriesPage = () => {
   const status = useSelector((store) => store.categories.status);
   const dispatch = useDispatch();
-  const onClick = () => { dispatch(categoriesRedux.fetchCategoriesStatus()); };
+  const onClick = () => { dispatch(categoriesRedux.checkStatus()); };
   return (
     <main className="app-main categories-page">
       <h2>
