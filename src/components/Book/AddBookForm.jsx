@@ -5,17 +5,20 @@ import { useDispatch } from 'react-redux';
 import * as bookActions from '../../redux/books/books';
 
 const AddBookForm = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch();
 
-  const onSubmit = (data) => { dispatch(bookActions.addBook(data)); };
+  const onSubmit = (data) => {
+    dispatch(bookActions.addBook(data));
+    reset();
+  };
   return (
     <div className="add-book-form">
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register('title')} placeholder="title" />
         <input {...register('author')} placeholder="author" />
         <input {...register('genre')} placeholder="genre" />
-        <input type="submit" />
+        <button type="submit">add Book</button>
       </form>
     </div>
   );
