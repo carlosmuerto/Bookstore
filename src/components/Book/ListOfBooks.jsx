@@ -2,13 +2,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import BookComponent from './Book';
 import { fetchBooks } from '../../redux/books/books';
+import loadingStatus from '../../redux/reduxConst';
 
 const ListOfBooks = () => {
   const dispatch = useDispatch();
   const books = useSelector((store) => store.books.books);
+  const loading = useSelector((store) => store.books.loading);
   useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
+    if (loading === loadingStatus.idle) dispatch(fetchBooks());
+  }, [dispatch, loading]);
 
   return (
     <div className="books-lisk">

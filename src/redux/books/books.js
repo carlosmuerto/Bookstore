@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-param-reassign */
-// import { remove } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
@@ -19,33 +18,53 @@ const APPID = 'rHGdJNyJVhIQoSfdhaAY';
 const ENDPOINTBOOKS = `${BASEURL}/apps/${APPID}/books`;
 
 // ASYNC REDUCERS
+
+const config = {
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+  },
+};
+
 // FETCHBOOKS
 const fetchBooks = createAsyncThunk(
   `${ACTION_PREPEND}/FETCHBOOKS`,
   async () => {
-    const res = await axios.get(ENDPOINTBOOKS);
+    const res = await axios.get(ENDPOINTBOOKS, config);
     return res.data;
-    /*
-    // WAIT -------------------------------------\/ millisecunds
-    await new Promise((res) => { setTimeout(res, 750); });
-    return [
-      createBook({
-        title: 'The Great Gatsby',
-        author: 'John Smith',
-        genre: 'Fiction',
-      }),
-    ];
-    */
   },
 );
 // ADDBOOK
 // const endPointBookId = (itemId) => `${ENDPOINTBOOKS}/${itemId}`;
 const addBook = createAsyncThunk(
   `${ACTION_PREPEND}/ADDBOOK`,
-  async (data) => {
-    // WAIT -------------------------------------\/ millisecunds
-    await new Promise((res) => { setTimeout(res, 750); });
-    return createBook({ data });
+  async (data, thunkAPI) => {
+    const book = createBook(data);
+    const res = await axios.post(ENDPOINTBOOKS, book, config);
+    const resStatus = {
+      data: res.data,
+      status: res.status,
+      statusText: res.statusText,
+    };
+    if (resStatus.status === 201) thunkAPI.dispatch(fetchBooks());
+    return resStatus;
+  },
+);
+// DELETEBOOK
+const endPointBookId = (itemId) => `${ENDPOINTBOOKS}/${itemId}`;
+
+const deleteBook = createAsyncThunk(
+  `${ACTION_PREPEND}/DELETEBOOK`,
+  async (itemId, thunkAPI) => {
+    const res = await axios.delete(endPointBookId(itemId), config);
+
+    const resStatus = {
+      data: res.data,
+      status: res.status,
+      statusText: res.statusText,
+    };
+    if (resStatus.status === 201) thunkAPI.dispatch(fetchBooks());
+    return resStatus;
   },
 );
 
@@ -56,26 +75,15 @@ const booksSlice = createSlice({
     books: [],
     error: null,
   },
-  reducers: {
-    /*
-    ADD: (state, param) => {
-      const { payload } = param;
-      state.books.push(createBook(payload));
-    },
-    REMOVE: (state, param) => {
-      const { payload } = param;
-      remove(state.books, { item_id: payload });
-    },
-    */
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       // FETCHBOOKS
       .addCase(fetchBooks.pending, (state) => {
-        state.loadingStatus = loadingStatus.pending;
+        state.loading = loadingStatus.pending;
       })
       .addCase(fetchBooks.fulfilled, (state, action) => {
-        state.loadingStatus = loadingStatus.succeeded;
+        state.loading = loadingStatus.succeeded;
         const BooksIds = keys(action.payload);
         state.books = BooksIds.map((item_id) => ({
           item_id,
@@ -83,21 +91,36 @@ const booksSlice = createSlice({
         }));
       })
       .addCase(fetchBooks.rejected, (state) => {
-        state.loadingStatus = loadingStatus.failed;
+        state.loading = loadingStatus.failed;
       })
       // ADDBOOK
       .addCase(addBook.pending, (state) => {
-        state.loadingStatus = loadingStatus.pending;
+        state.loading = loadingStatus.pending;
       })
       .addCase(addBook.fulfilled, (state) => {
-        state.loadingStatus = loadingStatus.succeeded;
+        state.loading = loadingStatus.succeeded;
       })
       .addCase(addBook.rejected, (state) => {
-        state.loadingStatus = loadingStatus.failed;
+        state.loading = loadingStatus.failed;
+      })
+      // DELETEBOOK
+      .addCase(deleteBook.pending, (state) => {
+        state.loading = loadingStatus.pending;
+      })
+      .addCase(deleteBook.fulfilled, (state) => {
+        state.loading = loadingStatus.succeeded;
+      })
+      .addCase(deleteBook.rejected, (state) => {
+        state.loading = loadingStatus.failed;
       });
   },
 });
 
 const { actions, reducer } = booksSlice;
-export { actions, fetchBooks, addBook };
+export {
+  actions,
+  fetchBooks,
+  addBook,
+  deleteBook,
+};
 export default reducer;
