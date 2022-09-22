@@ -2,7 +2,8 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { deleteBook } from '../../redux/books/books';
-
+import '@fontsource/montserrat';
+import '@fontsource/roboto-slab';
 import './Book.scss';
 
 const Book = ({ book }) => {
@@ -22,13 +23,13 @@ const Book = ({ book }) => {
           {category}
         </h5>
         <h4 className="title">{title}</h4>
-        <h5 className="authors">
-          {author}
-        </h5>
+        <h5 className="authors">{author}</h5>
+        <div className="action-buttons">
+          <button className="button-outline" type="button" onClick={onClick}>Delete</button>
+          <div className="vertical-divider" />
+        </div>
       </div>
-      <div className="read-status">
-        <button type="button" onClick={onClick}>Delete</button>
-      </div>
+      <div className="read-status" />
     </div>
   );
 };
