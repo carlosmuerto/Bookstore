@@ -5,6 +5,9 @@ import { useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { addBook } from '../../redux/books/books';
+import '@fontsource/montserrat';
+import '@fontsource/roboto-slab';
+import './AddBookForm.scss';
 
 const schema = yup.object({
   title: yup.string().required(),
@@ -22,9 +25,6 @@ const AddBookForm = () => {
     resolver: yupResolver(schema),
   });
   const dispatch = useDispatch();
-
-  // eslint-disable-next-line no-console
-  console.log(errors);
   const onSubmit = (data) => {
     reset();
     dispatch(addBook(data));
@@ -32,10 +32,11 @@ const AddBookForm = () => {
 
   return (
     <div className="add-book-form">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register('title')} placeholder="title" />
-        <input {...register('author')} placeholder="author" />
-        <select {...register('category')}>
+      <h2 className="form-title">ADD NEW BOOK</h2>
+      <form className="add-form" onSubmit={handleSubmit(onSubmit)}>
+        <input className="input title-input" {...register('title')} placeholder="title" />
+        <input className="input author-input" {...register('author')} placeholder="author" />
+        <select className="input category-input" {...register('category')}>
           <option value="">Categoty...</option>
           <option value="Fiction">Fiction</option>
           <option value="Fantasy">Fantasy</option>
@@ -45,7 +46,7 @@ const AddBookForm = () => {
           <option value="Comedy">Comedy</option>
           <option value="Education">Education</option>
         </select>
-        <button type="submit">add Book</button>
+        <button className="primary-button-big" type="submit">add Book</button>
       </form>
       <p>{errors.title?.message}</p>
       <p>{errors.author?.message}</p>
