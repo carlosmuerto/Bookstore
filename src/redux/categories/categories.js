@@ -1,21 +1,41 @@
-const initState = { status: 'please Check' };
+/* eslint-disable no-param-reassign */
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import loadingStatus from '../reduxConst';
 
-// Actions
-const CHECKSTATUS = 'bookstore/categories/CHECKSTATUS';
+// actions CONSTANTS
+const ACTION_PREPEND = 'bookstore/categories';
 
-const checkStatusAction = () => ({ status: 'Under construction' });
+const checkStatus = createAsyncThunk(
+  `${ACTION_PREPEND}/CHECKSTATUS`,
+  async () => {
+    // WAIT -------------------------------------\/ millisecunds
+    await new Promise((res) => { setTimeout(res, 750); });
+    return 'Under construction';
+  },
+);
 
-// Reducer
-const reducer = (prevState = initState, action = {}) => {
-  switch (action.type) {
-    case CHECKSTATUS: return checkStatusAction();
-    default: return prevState;
-  }
-};
+const categoriesSlice = createSlice({
+  name: ACTION_PREPEND,
+  initialState: {
+    loadingStatus: loadingStatus.idle,
+    status: 'please Check',
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(checkStatus.pending, (state) => {
+        if (state.loadingStatus === loadingStatus.idle) {
+          state.status = 'REQUESTING';
+        }
+        state.loadingStatus = loadingStatus.pending;
+      })
+      .addCase(checkStatus.fulfilled, (state, action) => {
+        state.loadingStatus = loadingStatus.succeeded;
+        state.status = action.payload;
+      });
+  },
+});
 
-// Action Creators
-
-const checkStatus = () => ({ type: CHECKSTATUS });
-
+const { actions, reducer } = categoriesSlice;
+export { actions, checkStatus };
 export default reducer;
-export { checkStatus };
