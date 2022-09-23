@@ -9,11 +9,11 @@ const CategoriesPage = () => {
   const onClick = () => { dispatch(categoriesRedux.checkStatus()); };
   return (
     <main className="app-main categories-page">
-      <h2>
-        status:
-        {` ${status}`}
-      </h2>
-      <button type="button" onClick={onClick}>Check status</button>
+      <button className="primary-button-big" type="button" onClick={onClick}>
+        <h2>
+          {`${status}`}
+        </h2>
+      </button>
     </main>
   );
 };

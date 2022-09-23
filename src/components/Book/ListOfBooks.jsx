@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import BookComponent from './Book';
 import { fetchBooks } from '../../redux/books/books';
 import loadingStatus from '../../redux/reduxConst';
+import '@fontsource/montserrat';
+import './ListOfBooks.scss';
 
 const ListOfBooks = () => {
   const dispatch = useDispatch();
